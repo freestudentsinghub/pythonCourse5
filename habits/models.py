@@ -4,7 +4,7 @@ from config.settings import AUTH_USER_MODEL
 
 
 class Habits(models.Model):
-    owner = models.ForeignKey(AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name="Владелец привычки", blank=True,
+    user = models.ForeignKey(AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name="Владелец привычки", blank=True,
                               null=True)
     location = models.CharField(max_length=200, default="Дома", verbose_name="Место выполнения привычки")
     habit_time = models.DateTimeField(verbose_name="Дата и время выполнения привычки")
