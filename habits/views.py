@@ -6,6 +6,7 @@ from habits.models import Habits
 from habits.paginations import HabitPaginator
 from habits.permissions import IsOwner
 from habits.serializers import HabitSerializer
+from habits.services import send_telegram_message
 
 
 # Create your views here.
@@ -43,6 +44,15 @@ class HabitCreateAPIView(generics.CreateAPIView):
 
     serializer_class = HabitSerializer
     queryset = Habits.objects.all()
+
+    def perform_create(self, serializer):
+        """Создаем привычку и отправляем сообщение пользователю в Телеграм."""
+        habit = serializer.save()
+        habit.user = self.request.user
+        habit = serializer.save()
+        habit.save()
+        if habit.user.tg_chat_id:
+            send_telegram_message(habit.user.tg_chat_id, "Создана новая привычка!")
 
 
 class HabitUpdateAPIView(generics.UpdateAPIView):
