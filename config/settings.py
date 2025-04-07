@@ -1,4 +1,3 @@
-
 import os
 from datetime import timedelta
 
@@ -31,6 +30,7 @@ INSTALLED_APPS = [
     'habits',
     'rest_framework_simplejwt',
     'django_filters',
+    'django_celery_beat'
 ]
 
 MIDDLEWARE = [
